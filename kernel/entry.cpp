@@ -3,6 +3,7 @@
 #include "include/lib/io.hpp"
 #include "include/lib/str.hpp"
 #include "include/lib/math.hpp"
+#include "include/lib/mem.hpp"
 
 // NOTE: the entry function must be called noob_start(): defined in boot.asm
 /*
@@ -26,14 +27,31 @@ extern "C" {
 #endif
 }
 
+class A {
+    public:
+        A() {
+            a = 5;
+        }
+        int getA() {
+            return a;
+        }  
+    private:
+        int a;    
+};
+
 extern "C" {
-    void noob_start() {
+    void noob_start() { 
         core::clear_screen();
+        
         char str[10] = {0};
         char *str_ptr = str;
         nlib::itoa(32353, str_ptr, 10);
-        nlib::srand(3);
-        nlib::printf("%d", (int) nlib::rand(0, 100));
+        
+        float a = nlib::pow<float>(4.f,0.5f);
+
+        char *something = (char *) malloc(34);
+
+        nlib::printf("%d", 5);
     }
 }
 

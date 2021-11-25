@@ -1,5 +1,3 @@
-#include <limits.h>
-
 #include "../include/lib/math.hpp"
 
 static unsigned long x = 0;
