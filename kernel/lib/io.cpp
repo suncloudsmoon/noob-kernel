@@ -23,12 +23,7 @@ namespace nlib {
                     int num = va_arg(args, int);
                     char str[100] = {0};
                     itoa(num, str, sizeof(str) - 2);
-
-                    int index = 0;
-                    while (char z = str[index++]) {
-                        put_auto_char(z);
-                    }
-                    vga[0] = 'a';
+                    printf("%s", str);
                 } else if (f == 'c') {
                     int a = va_arg(args, int);
                     put_auto_char(static_cast<char>(a));

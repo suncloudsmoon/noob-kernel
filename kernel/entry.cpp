@@ -2,6 +2,7 @@
 #include "include/coreutil.hpp"
 #include "include/lib/io.hpp"
 #include "include/lib/str.hpp"
+#include "include/lib/math.hpp"
 
 // NOTE: the entry function must be called noob_start(): defined in boot.asm
 /*
@@ -16,6 +17,12 @@ extern "C" {
     void __stack_chk_fail_local() {
 
     }
+    void __cxa_guard_acquire() {
+
+    }
+    void __cxa_guard_release() {
+
+    }
 #endif
 }
 
@@ -25,7 +32,8 @@ extern "C" {
         char str[10] = {0};
         char *str_ptr = str;
         nlib::itoa(32353, str_ptr, 10);
-        nlib::printf("%s", str_ptr);
+        nlib::srand(3);
+        nlib::printf("%d", (int) nlib::rand(0, 100));
     }
 }
 
