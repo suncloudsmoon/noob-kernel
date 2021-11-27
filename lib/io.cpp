@@ -19,18 +19,18 @@
 
 #include <stdarg.h>
 
+#include "../include/debugmode.hpp"
 #include "../include/lib/io.hpp"
 #include "../include/lib/str.hpp"
+#include "../include/kernel/coreutil.hpp"
 #include "../include/kernel/coreconsts.hpp"
 
-static int itoa(int val, char *str, int str_size);
-
-static void put_auto_char(char c);
-static void put_char(char c, int pos);
-template<class T>
-static constexpr T convert_to_1d_pos(T x, T y, T width);
 
 namespace nlib {
+    static void put_auto_char(char c);
+    template<class T>
+    static constexpr T convert_to_1d_pos(T x, T y, T width);
+
     int printf(const char *format, ...) {
         int index = 0;
         va_list args;
@@ -40,7 +40,7 @@ namespace nlib {
                 char f = format[index++];
                 if (f == 'd') {
                     int num = va_arg(args, int);
-                    char str[100] = {0};
+                    char str[100] = {};
                     itoa(num, str, sizeof(str) - 2);
                     printf("%s", str);
                 } else if (f == 'c') {
@@ -51,6 +51,7 @@ namespace nlib {
                     int i = 0;
                     while (char z = str[i++]) { put_auto_char(z); }
                 } else {
+                    put_auto_char('%');
                     put_auto_char(f);
                 }
             } else {
@@ -60,27 +61,35 @@ namespace nlib {
         va_end(args);
         return 0;
     }
-}
 
-static void put_auto_char(char c) {
-    static int x = 0, y = 0;
-    // bounds checking
-    if (x >= VGA_SCREEN_WIDTH) {
-        x = 0;
-        y++;
+    static void put_auto_char(char c) {
+        static int x = 0, y = 0;
+        // bounds checking
+        if (x >= VGA_SCREEN_WIDTH) {
+            x = 0;
+            y++;
+        } else {
+            switch (c) {
+                case '\n':
+                    x = 0;
+                    y++;
+                    return;          
+                case '\t':
+                    x += 4;
+                    return;
+                default:
+                    break;        
+            }
+        }
+        
+        int screen_pos = convert_to_1d_pos(x, y, VGA_SCREEN_WIDTH * 2);
+        core::put_char(screen_pos, c);
+        x += 2;
     }
-    int screen_pos = convert_to_1d_pos(x, y, VGA_SCREEN_WIDTH);
-    put_char(c, screen_pos);
-    x += 2;
-}
 
-// See https://wiki.osdev.org/Printing_To_Screen
-static void put_char(char c, int pos) {
-    vga[pos] = c;
-    vga[pos + 1] = WHITE_COLOR_VGA;
-} 
+    template<class T>
+    static constexpr T convert_to_1d_pos(T x, T y, T width) {
+        return (y * width) + x;
+    }
 
-template<class T>
-static constexpr T convert_to_1d_pos(T x, T y, T width) {
-    return (y * width) + x;
 }

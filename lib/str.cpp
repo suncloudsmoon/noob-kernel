@@ -20,11 +20,12 @@
 #include "../include/lib/str.hpp"
 
 namespace nlib {
-    /*
-NOTE: str_size excluding the null terminator
-*/
+/*
+ * NOTE: str_size excluding the null terminator
+ * TODO: add support for negative numbers
+ */
     int itoa(int val, char *str, int str_size) {
-        char arr[MAX_ITOA_PRECISION] = {0};
+        char arr[MAX_ITOA_PRECISION] = {};
         int arrIndex = MAX_ITOA_PRECISION - 1;
         if (val == 0) {
             arr[arrIndex] = to_char(0);
@@ -34,8 +35,8 @@ NOTE: str_size excluding the null terminator
                 val /= 10;
                 arrIndex--;
             }
+            arrIndex++;
         }
-        arrIndex++;
         int i;
         for (i = 0; i < str_size - 1; i++) {
             if (arrIndex > MAX_ITOA_PRECISION - 1)

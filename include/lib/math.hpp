@@ -23,6 +23,7 @@
 namespace nlib {
 	// Need to fix this: https://en.wikipedia.org/wiki/Proof_that_22/7_exceeds_%CF%80
 	constexpr double PI = (double) 22 / 7;
+	constexpr double E = (double) 2.718281828459045;
 
 	void srand(unsigned long seed);
 	unsigned long rand(unsigned long start, unsigned long end);
@@ -48,7 +49,20 @@ namespace nlib {
 	}
 
 	constexpr double exp(int x) {
-		return pow(PI, x);
+		return pow(E, x);
+	}
+
+	template<class T>
+	constexpr T ceil(T x) {
+		if (x >= 0) {
+			return (x - ((x / x) - 1)) + 1;
+		} else {
+			return x + ((x / x) - 1);
+		}
+	}
+	template<>
+	constexpr int ceil(int x) {
+		return x + ((x >= 0) ? 1 : 0);
 	}
 }
 

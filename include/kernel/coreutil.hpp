@@ -22,6 +22,7 @@
 
 namespace core {
     void clear_screen();
+    void put_char(int pos, char c);
 }
 
 

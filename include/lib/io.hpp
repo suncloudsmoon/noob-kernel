@@ -21,6 +21,7 @@
 #define IO_HPP
 
 namespace nlib {
+    constexpr unsigned int TAB_SPACES = 4;
     // Implementing a small subset of stdio
     int printf(const char *format, ...);
 }

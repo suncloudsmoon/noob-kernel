@@ -66,11 +66,14 @@ class A {
 extern "C" {
     void noob_start() { 
         core::clear_screen();
-        char *something = (char *) nlib::malloc(34);
 
-        // Testing if malloc works in A class
         A *test_malloc = new A();
-        nlib::printf("A is %d!", test_malloc->getA());
+        // nlib::printf("A is %d!", test_malloc->getA());
+        for (int i = 0; i < 1; i++)
+            nlib::printf("%c", '\n');
+        nlib::printf("Success!");    
+        
+        // nlib::printf("ceil(5) is %c!", nlib::to_char(nlib::ceil(5)));
     }
 }
 

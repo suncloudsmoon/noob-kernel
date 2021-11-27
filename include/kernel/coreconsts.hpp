@@ -20,6 +20,8 @@
 #ifndef CORECONSTS_HPP
 #define CORECONSTS_HPP
 
+#define NULL 0
+
 static char *vga = (char*) 0xB8000;
 
 constexpr int WHITE_COLOR_VGA = 0xF;

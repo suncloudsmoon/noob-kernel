@@ -22,12 +22,16 @@
 
 namespace core {
     void clear_screen() {
-        for (int y = 0; y < VGA_SCREEN_HEIGHT; y++) {
-            for (int x = 0; x < VGA_SCREEN_WIDTH; x+=2) {
-                int pos = y * VGA_SCREEN_WIDTH + x;
-                vga[pos] = 0x0;
-                vga[pos + 1] = 0x0;
+        for (int y = 0; y <= VGA_SCREEN_HEIGHT; y++) {
+            for (int x = 0; x <= VGA_SCREEN_WIDTH; x+=2) {
+                int pos = (y * VGA_SCREEN_WIDTH) + x;
+                put_char(pos, ' ');
             }
         }
     }
+    // See https://wiki.osdev.org/Printing_To_Screen
+    void put_char(int pos, char c) {
+        vga[pos] = c;
+        vga[pos + 1] = WHITE_COLOR_VGA;
+    } 
 }
