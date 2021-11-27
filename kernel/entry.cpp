@@ -1,9 +1,14 @@
-#include "include/debugmode.hpp"
-#include "include/coreutil.hpp"
-#include "include/lib/io.hpp"
-#include "include/lib/str.hpp"
-#include "include/lib/math.hpp"
-#include "include/lib/mem.hpp"
+#include "../include/debugmode.hpp"
+#include "../include/lib/mem.hpp"
+#include "../include/kernel/coreutil.hpp"
+#include "../include/lib/io.hpp"
+#include "../include/lib/str.hpp"
+#include "../include/lib/math.hpp"
+
+/*
+ * Command used to test this kernel:
+ * qemu-system-i386 -kernel bin/noob_kernel.bin
+ */
 
 // NOTE: the entry function must be called noob_start(): defined in boot.asm
 /*
@@ -42,16 +47,11 @@ class A {
 extern "C" {
     void noob_start() { 
         core::clear_screen();
-        
-        char str[10] = {0};
-        char *str_ptr = str;
-        nlib::itoa(32353, str_ptr, 10);
-        
-        float a = nlib::pow<float>(4.f,0.5f);
+        char *something = (char *) nlib::malloc(34);
 
-        char *something = (char *) malloc(34);
-
-        nlib::printf("%d", 5);
+        // Testing if malloc works in A class
+        A *test_malloc = new A();
+        nlib::printf("A is %d!", test_malloc->getA());
     }
 }
 

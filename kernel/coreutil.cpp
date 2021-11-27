@@ -1,5 +1,5 @@
-#include "coreutil.hpp"
-#include "coreconsts.hpp"
+#include "../include/kernel/coreutil.hpp"
+#include "../include/kernel/coreconsts.hpp"
 
 namespace core {
     void clear_screen() {

@@ -2,7 +2,7 @@
 
 #include "../include/lib/io.hpp"
 #include "../include/lib/str.hpp"
-#include "../include/coreconsts.hpp"
+#include "../include/kernel/coreconsts.hpp"
 
 static int itoa(int val, char *str, int str_size);
 
