@@ -68,10 +68,9 @@ extern "C" {
         core::clear_screen();
 
         A *test_malloc = new A();
+        delete test_malloc;
         // nlib::printf("A is %d!", test_malloc->getA());
-        for (int i = 0; i < 1; i++)
-            nlib::printf("%c", '\n');
-        nlib::printf("Success!");    
+        nlib::printf("Success!\n");
         
         // nlib::printf("ceil(5) is %c!", nlib::to_char(nlib::ceil(5)));
     }

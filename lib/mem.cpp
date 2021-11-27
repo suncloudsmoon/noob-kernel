@@ -17,6 +17,7 @@
  * SOFTWARE.
  */
 
+#include "../include/debugmode.hpp"
 #include "../include/lib/mem.hpp"
 
 namespace nlib {
@@ -38,6 +39,13 @@ void* operator new(size_t size) {
 
 void* operator new[](size_t size) {
     return nlib::malloc(size);
+}
+
+void operator delete(void *ptr, size_t size) {
+#ifdef DEBUG
+    bug_check("Deleted pointer size: %d\n", (int) size);
+#endif
+    nlib::free(ptr);
 }
 
 void operator delete(void *ptr) {

@@ -20,9 +20,18 @@
 #ifndef COREUTIL_HPP
 #define COREUTIL_HPP
 
+/*
+ * Core utilities do not depend on anything else, such as the lib/ utilities.
+ */
+
 namespace core {
     void clear_screen();
     void put_char(int pos, char c);
+    
+    template<class T>
+    constexpr T convert_to_1d_pos(T x, T y, T width) {
+        return (y * width) + x;
+    }
 }
 
 

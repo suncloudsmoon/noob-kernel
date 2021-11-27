@@ -22,4 +22,9 @@
 
 #define DEBUG
 
+#ifdef DEBUG
+#include "lib/io.hpp"
+#define bug_check(format, ...) nlib::printf(format, __VA_ARGS__)
+#endif
+
 #endif /* DEBUGMODE_HPP */ 

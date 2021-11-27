@@ -28,8 +28,6 @@
 
 namespace nlib {
     static void put_auto_char(char c);
-    template<class T>
-    static constexpr T convert_to_1d_pos(T x, T y, T width);
 
     int printf(const char *format, ...) {
         int index = 0;
@@ -82,14 +80,8 @@ namespace nlib {
             }
         }
         
-        int screen_pos = convert_to_1d_pos(x, y, VGA_SCREEN_WIDTH * 2);
+        int screen_pos = core::convert_to_1d_pos(x, y, VGA_SCREEN_WIDTH * 2);
         core::put_char(screen_pos, c);
         x += 2;
     }
-
-    template<class T>
-    static constexpr T convert_to_1d_pos(T x, T y, T width) {
-        return (y * width) + x;
-    }
-
 }

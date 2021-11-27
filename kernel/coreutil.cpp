@@ -22,9 +22,10 @@
 
 namespace core {
     void clear_screen() {
+        // We have to multiply by 2 to account for the space occupied by character itself and its color property
         for (int y = 0; y <= VGA_SCREEN_HEIGHT; y++) {
-            for (int x = 0; x <= VGA_SCREEN_WIDTH; x+=2) {
-                int pos = (y * VGA_SCREEN_WIDTH) + x;
+            for (int x = 0; x <= VGA_SCREEN_WIDTH * 2; x+=2) {
+                int pos = convert_to_1d_pos(x, y, VGA_SCREEN_WIDTH * 2);
                 put_char(pos, ' ');
             }
         }
@@ -33,5 +34,5 @@ namespace core {
     void put_char(int pos, char c) {
         vga[pos] = c;
         vga[pos + 1] = WHITE_COLOR_VGA;
-    } 
+    }
 }
